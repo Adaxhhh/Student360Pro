@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student360 Pro - Smart Performance Tracker</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Splash Screen -->
+<div id="splash-screen">
+    <h1>
+        <span>M</span><span>a</span><span>d</span><span>e</span>
+        <span> </span>
+        <span>b</span><span>y</span>
+        <span> </span>
+        <span>H</span><span>a</span><span>r</span><span>s</span><span>h</span><span>i</span><span>t</span>
+        <span> </span>
+        <span>a</span><span>n</span><span>d</span>
+        <span> </span>
+        <span>A</span><span>a</span><span>d</span><span>a</span><span>r</span><span>s</span><span>h</span>
+    </h1>
+</div>
+
+<div id="app" class="container">
+<!-- Login View -->
+<div id="login-view" class="view flex flex-col items-center justify-center">
+    <div class="w-full grid md:grid-cols-2 items-center gap-12 h-full">
+        <div class="text-left">
+            <h1 class="text-6xl font-bold mb-4 leading-tight">Student360 Pro</h1>
+            <p class="text-2xl text-gray-600 mb-10">Unlock Potential. Track Progress. Foster Success.</p>
+            <div class="flex flex-col gap-6 w-full max-w-sm">
+                <button id="login-teacher" class="login-button teacher-bg">
+                    <i class="fas fa-chalkboard-user text-2xl"></i> Teacher Portal
+                </button>
+                <button id="login-student" class="login-button student-bg">
+                    <i class="fas fa-user-graduate text-2xl"></i> Student Portal
+                </button>
+                <button id="login-parent" class="login-button parent-bg">
+                    <i class="fas fa-users-viewfinder text-2xl"></i> Parent Portal
+                </button>
+            </div>
+            <p class="mt-8 text-gray-500 text-sm">(Note: This is a demo. No real authentication is performed.)</p>
+        </div>
+        <div class="hidden md:flex justify-center items-center h-full py-12">
+            <div class="welcome-panel">
+                <h2>Welcome to<br>Student360 Pro</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Teacher Dashboard View -->
+    <div id="teacher-dashboard-view" class="view hidden">
+         <div class="flex justify-between items-center mb-8">
+            <h2 class="text-4xl font-bold">Teacher Dashboard</h2>
+            <div class="flex items-center gap-4">
+                <button class="theme-toggle-btn logout-button" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+                <button id="teacher-logout" class="logout-button">
+                    <i class="fas fa-sign-out-alt"></i>Logout
+                </button>
+            </div>
+        </div>
+        
+        <div id="teacher-banner" class="dashboard-banner"></div>
+
+        <div id="smart-alerts" class="hidden">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-bell"></i>
+                <p class="font-bold text-xl">Important Smart Alerts</p>
+            </div>
+            <ul id="alert-list" class="mt-3 ml-10 list-disc space-y-2"></ul>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <div class="lg:col-span-1 card flex flex-col">
+                 <h3 class="text-2xl font-semibold mb-4">Class Performance</h3>
+                 <div class="chart-container">
+                    <canvas id="classPerformanceDistributionChart"></canvas>
+                 </div>
+            </div>
+            <div class="lg:col-span-2 card flex flex-col">
+                <h3 class="text-2xl font-semibold mb-4">Subject-wise Class Average</h3>
+                <div class="chart-container">
+                    <canvas id="classSubjectAverageChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-0 mb-8">
+            <h3 class="text-2xl font-semibold mb-0 p-6">Student Overview</h3>
+            <div class="table-responsive">
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Class</th>
+                            <th scope="col">Avg. Score</th>
+                            <th scope="col">Attendance</th>
+                            <th scope="col">Flags</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+         <div class="card">
+            <h3 class="text-2xl font-semibold mb-4">AI-Powered Suggestions</h3>
+            <div id="ai-suggestions">
+                <p class="text-gray-600 mb-4">Generate targeted, actionable feedback for students who may need extra support.</p>
+                <button id="generate-suggestions" class="primary-action-button">
+                    <span id="suggestion-btn-text">✨ Generate Suggestions</span>
+                    <div id="suggestion-spinner" class="spinner hidden"></div>
+                </button>
+                <ul id="suggestion-list" class="mt-4 space-y-3 list-disc list-inside text-gray-700"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Detail Modal (for Teacher) -->
+    <div id="student-detail-modal" class="modal hidden">
+        <div class="modal-content max-w-5xl w-full mx-4">
+            <button class="modal-close-button" id="close-student-detail">
+                <i class="fas fa-times-circle"></i>
+            </button>
+            <h3 id="modal-student-name" class="text-4xl font-bold mb-6"></h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <div class="info-box">
+                    <h4 class="text-xl font-semibold mb-3">Key Info</h4>
+                    <p><span class="font-medium">Class:</span> <span id="modal-student-class"></span></p>
+                    <p><span class="font-medium">Attendance:</span> <span id="modal-student-attendance" class="font-bold"></span>%</p>
+                    <p><span class="font-medium">Overall Avg:</span> <span id="modal-student-avg" class="font-bold"></span></p>
+                </div>
+                 <div class="info-box">
+                    <h4 class="text-xl font-semibold mb-3">Performance Insight</h4>
+                    <p><span class="font-medium">Lowest Subject:</span> <span id="modal-student-lowest-subject" class="text-red-600 font-bold"></span></p>
+                    <p><span class="font-medium">Highest Subject:</span> <span id="modal-student-highest-subject" class="text-green-600 font-bold"></span></p>
+                    <p><span class="font-medium">Predictive Score:</span> <span id="modal-student-predictive-score" class="font-bold text-blue-600"></span></p>
+                </div>
+                <div class="info-box">
+                    <h4 class="text-xl font-semibold mb-3">Subject Marks</h4>
+                     <div class="max-h-32 overflow-y-auto">
+                        <table class="min-w-full">
+                            <tbody id="modal-marks-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card">
+                    <h4 class="text-xl font-semibold mb-4">Subject Strength Radar</h4>
+                    <canvas id="studentRadarChart" width="400" height="350"></canvas>
+                </div>
+                <div class="card">
+                    <h4 class="text-xl font-semibold mb-4">Last 3 Tests Trend</h4>
+                    <canvas id="studentTrendLineChart" width="400" height="350"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student View -->
+    <div id="student-view" class="view hidden">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-4xl font-bold">Hello, <span id="student-name-display" class="text-indigo-600"></span>!</h2>
+            <div class="flex items-center gap-4">
+                <button class="theme-toggle-btn logout-button" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+                <button id="student-logout" class="logout-button">
+                    <i class="fas fa-sign-out-alt"></i>Logout
+                </button>
+            </div>
+        </div>
+
+        <div id="student-banner" class="dashboard-banner"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            <div class="card flex flex-col items-center text-center">
+                <i class="fas fa-award text-6xl text-blue-500 mb-4"></i>
+                <h3 class="text-2xl font-semibold">Marks Overview</h3>
+                <p class="text-lg text-gray-600">Overall Avg: <span id="student-overall-avg" class="font-bold text-2xl"></span></p>
+                <p class="text-lg text-gray-600">Percentile: <span id="student-percentile" class="font-bold text-2xl text-green-600"></span></p>
+            </div>
+            <div class="card flex flex-col items-center text-center">
+                <i class="fas fa-calendar-check text-6xl text-purple-500 mb-4"></i>
+                <h3 class="text-2xl font-semibold">Attendance</h3>
+                <p class="text-lg text-gray-600">Current: <span id="student-attendance-display" class="font-bold text-4xl"></span>%</p>
+                <p id="attendance-status" class="text-md mt-2 font-semibold"></p>
+            </div>
+            <div class="card flex flex-col items-center text-center">
+                <i class="fas fa-bullseye text-6xl text-yellow-500 mb-4"></i>
+                <h3 class="text-2xl font-semibold mb-4">Focus Area</h3>
+                <p class="text-lg mb-4">Your main area for improvement is <strong id="student-focus-subject" class="text-red-600"></strong>.</p>
+                <button id="generate-learning-path" class="primary-action-button orange">
+                    <span id="learning-path-btn-text">🚀 Build My Learning Path</span>
+                    <div id="learning-path-spinner" class="spinner hidden"></div>
+                </button>
+                <ul id="learning-path-list" class="list-disc list-inside"></ul>
+            </div>
+        </div>
+         <div class="card p-0">
+            <h3 class="text-2xl font-semibold mb-0 p-6 flex items-center gap-3"><i class="fas fa-robot text-indigo-500"></i> LionsGPT</h3>
+            <div class="flex flex-col h-96">
+                <div id="chat-history" class="chat-history flex-grow">
+                    <!-- Chat messages will be appended here -->
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chat-input" placeholder="Ask LionsGPT...">
+                    <button id="chat-send" class="chat-send-button">
+                       <span id="chat-send-text"><i class="fas fa-paper-plane"></i></span>
+                       <div id="chat-spinner" class="spinner hidden"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parent Dashboard View -->
+    <div id="parent-dashboard-view" class="view hidden">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-4xl font-bold">Parent Dashboard</h2>
+            <div class="flex items-center gap-4">
+                <button class="theme-toggle-btn logout-button" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+                <button id="parent-logout" class="logout-button">
+                    <i class="fas fa-sign-out-alt"></i>Logout
+                </button>
+            </div>
+        </div>
+
+        <div id="parent-banner" class="dashboard-banner"></div>
+        
+        <p class="text-xl text-gray-600 mb-8">Select a child to view their detailed academic report.</p>
+        <div id="children-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+    </div>
+    
+    <!-- Parent's Child Detail View (Full Page) -->
+    <div id="parent-child-detail-view" class="view hidden">
+         <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+            <div>
+                 <button id="back-to-parent-dashboard" class="logout-button mb-4">
+                    <i class="fas fa-arrow-left"></i>Back to Dashboard
+                </button>
+                <h2 id="parent-view-child-name" class="text-4xl font-bold"></h2>
+            </div>
+            <div class="flex gap-4 flex-wrap child-detail-actions">
+                <button class="theme-toggle-btn logout-button" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+                <button id="generate-teacher-note" class="primary-action-button blue">
+                    <span id="note-btn-text">✨ Generate Note to Teacher</span>
+                    <div id="note-spinner" class="spinner hidden"></div>
+                </button>
+                <button id="download-parent-report" class="primary-action-button teal">
+                    <i class="fas fa-file-pdf"></i>Download Report
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+             <div class="lg:col-span-1 info-box">
+                 <h4 class="text-xl font-semibold">Key Metrics</h4>
+                 <p class="text-lg"><span class="font-medium">Class:</span> <span id="parent-view-child-class"></span></p>
+                 <p class="text-lg"><span class="font-medium">Attendance:</span> <span id="parent-view-child-attendance" class="font-bold"></span>%</p>
+                 <p class="text-lg"><span class="font-medium">Overall Average:</span> <span id="parent-view-child-avg" class="font-bold"></span></p>
+             </div>
+             <div class="lg:col-span-2 teacher-message-box flex flex-col justify-center">
+                 <h4 class="text-2xl font-bold mb-3 flex items-center gap-3"><i class="fas fa-chalkboard-teacher"></i> Teacher's Message</h4>
+                 <p id="parent-view-teacher-message" class="italic text-lg leading-relaxed"></p>
+             </div>
+        </div>
+
+         <div class="card p-0 mb-8">
+            <h4 class="text-2xl font-semibold mb-0 p-6">Subject Performance</h4>
+            <div class="table-responsive">
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Marks</th>
+                            <th>Strength/Weakness</th>
+                        </tr>
+                    </thead>
+                    <tbody id="parent-view-marks-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="card">
+                <h4 class="text-xl font-semibold mb-4">Marks vs. Class Topper</h4>
+                <canvas id="parentChildMarksTopperChart" height="300"></canvas>
+            </div>
+            <div class="card">
+                <h4 class="text-xl font-semibold mb-4">Attendance Trend</h4>
+                <canvas id="parentChildAttendanceTrendChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Generic Modal for Gemini Responses -->
+<div id="gemini-response-modal" class="modal hidden">
+    <div class="modal-content max-w-2xl w-full mx-4">
+        <button class="modal-close-button" onclick="document.getElementById('gemini-response-modal').classList.add('hidden')">
+            <i class="fas fa-times-circle"></i>
+        </button>
+        <h3 id="gemini-modal-title" class="text-2xl font-bold mb-4"></h3>
+        <div id="gemini-modal-content" class="text-gray-700 bg-gray-50 p-4 rounded-lg max-h-[60vh] overflow-y-auto leading-relaxed text-base"></div>
+         <button id="copy-gemini-response" class="mt-6 primary-action-button">
+            <i class="fas fa-copy"></i> Copy Text
+        </button>
+    </div>
+</div>
+
+<!-- Toast Notification Element -->
+<div id="toast-notification" class="toast-notification"></div>
+
+<script src="renderer.js"></script>
+</body>
+</html>
