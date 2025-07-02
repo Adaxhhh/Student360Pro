@@ -462,6 +462,6 @@ def serve_frontend(path):
 # --- Main Execution ---
 app = Flask(
     __name__,
-    static_folder='frontend', # Changed from '../frontend'
+    static_folder='Frontend',
     template_folder='.'
 )
