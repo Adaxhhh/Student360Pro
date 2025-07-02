@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import requests
 from flask_admin import Admin as AdminManager, AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
+from flask_migrate import Migrate
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
 from wtforms.fields import TextAreaField, PasswordField
 from markupsafe import Markup
@@ -37,6 +38,7 @@ app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 
 # --- Extensions Initialization ---
 db.init_app(app)
+migrate = Migrate(app, db) # <--- ADD THIS LINE to initialize Flask-Migrate
 CORS(app, resources={r"/api/*": {"origins": "*"}}) # Limit CORS to API routes
 login_manager = LoginManager()
 login_manager.init_app(app)
