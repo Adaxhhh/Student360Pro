@@ -27,7 +27,7 @@ app = Flask(
 
 # --- App Configuration ---
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_default_secret_key')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 
@@ -460,8 +460,8 @@ def serve_frontend(path):
         return send_from_directory(app.static_folder, 'index.html')
 
 # --- Main Execution ---
-if __name__ == '__main__':
-    with app.app_context():
-        # This ensures the database is created if it doesn't exist
-        db.create_all()
-    app.run(debug=True, port=8000)
+app = Flask(
+    __name__,
+    static_folder='frontend', # Changed from '../frontend'
+    template_folder='.'
+)
