@@ -6,6 +6,7 @@ import requests
 from flask_admin import Admin as AdminManager, AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_migrate import Migrate
+from seed import seed_data
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
 from wtforms.fields import TextAreaField, PasswordField
 from markupsafe import Markup
@@ -43,6 +44,29 @@ CORS(app, resources={r"/api/*": {"origins": "*"}}) # Limit CORS to API routes
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'admin.login' # Redirect to admin login
+
+# It should ONLY be used once and is protected by a secret key.
+@app.route('/api/seed-database/<secret_key>')
+def trigger_seed_data(secret_key):
+    # This secret key should be set as an Environment Variable on Render
+    # for security. It should be different from your Flask SECRET_KEY.
+    SEEDING_SECRET = os.environ.get('SEEDING_SECRET')
+    
+    if SEEDING_SECRET is None:
+        return jsonify({"success": False, "message": "Seeding key is not configured on the server."}), 500
+        
+    if secret_key != SEEDING_SECRET:
+        return jsonify({"success": False, "message": "Invalid secret key provided."}), 403 # 403 Forbidden
+
+    try:
+        print("SEEDING: Database seeding initiated via secret URL...")
+        seed_data() # Call the function from your seed.py file
+        print("SEEDING: Database seeding completed successfully.")
+        return jsonify({"success": True, "message": "Database has been seeded successfully!"})
+    except Exception as e:
+        # Log the detailed error to the console for debugging
+        print(f"SEEDING: An error occurred during seeding: {e}")
+        return jsonify({"success": False, "message": f"An error occurred: {e}"}), 500
 
 @login_manager.user_loader
 def load_user(user_id):
