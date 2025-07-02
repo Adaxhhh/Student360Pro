@@ -1,6 +1,6 @@
 // --- Global Configuration ---
 // The base URL for our Python backend API
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = '/api';
 
 // --- DOM Elements & Global State ---
 const htmlEl = document.documentElement;
