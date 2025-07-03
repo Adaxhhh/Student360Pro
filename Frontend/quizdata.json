@@ -1,0 +1,212 @@
+[
+    {
+        "subject": "Science",
+        "question": "What is the chemical symbol for water?",
+        "options": ["O2", "H2O", "CO2", "NaCl"],
+        "answer": "H2O",
+        "topic": "Chemistry"
+    },
+    {
+        "subject": "Science",
+        "question": "Which planet is known as the Red Planet?",
+        "options": ["Earth", "Mars", "Jupiter", "Venus"],
+        "answer": "Mars",
+        "topic": "Astronomy"
+    },
+    {
+        "subject": "Science",
+        "question": "What is the powerhouse of the cell?",
+        "options": ["Nucleus", "Ribosome", "Mitochondrion", "Chloroplast"],
+        "answer": "Mitochondrion",
+        "topic": "Biology"
+    },
+    {
+        "subject": "Science",
+        "question": "What force pulls objects toward the center of the Earth?",
+        "options": ["Magnetism", "Gravity", "Friction", "Inertia"],
+        "answer": "Gravity",
+        "topic": "Physics"
+    },
+    {
+        "subject": "Science",
+        "question": "What is the largest mammal in the world?",
+        "options": ["Elephant", "Blue Whale", "Great White Shark", "Giraffe"],
+        "answer": "Blue Whale",
+        "topic": "Biology"
+    },
+    {
+        "subject": "Science",
+        "question": "Which element has the atomic number 1?",
+        "options": ["Helium", "Oxygen", "Hydrogen", "Carbon"],
+        "answer": "Hydrogen",
+        "topic": "Chemistry"
+    },
+    {
+        "subject": "Science",
+        "question": "What is the speed of light?",
+        "options": ["300,000 km/s", "150,000 km/s", "500,000 km/s", "1,000,000 km/s"],
+        "answer": "300,000 km/s",
+        "topic": "Physics"
+    },
+    {
+        "subject": "Science",
+        "question": "Photosynthesis occurs in which part of a plant cell?",
+        "options": ["Mitochondria", "Nucleus", "Chloroplasts", "Ribosomes"],
+        "answer": "Chloroplasts",
+        "topic": "Biology"
+    },
+    {
+        "subject": "Science",
+        "question": "What is the hardest natural substance on Earth?",
+        "options": ["Gold", "Iron", "Diamond", "Quartz"],
+        "answer": "Diamond",
+        "topic": "Geology"
+    },
+    {
+        "subject": "Science",
+        "question": "What gas do plants absorb from the atmosphere?",
+        "options": ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
+        "answer": "Carbon Dioxide",
+        "topic": "Biology"
+    },
+    {
+        "subject": "Math",
+        "question": "What is the value of Pi (to two decimal places)?",
+        "options": ["3.12", "3.14", "3.16", "3.18"],
+        "answer": "3.14",
+        "topic": "Geometry"
+    },
+    {
+        "subject": "Math",
+        "question": "What is 5 factorial (5!)?",
+        "options": ["120", "60", "25", "20"],
+        "answer": "120",
+        "topic": "Arithmetic"
+    },
+    {
+        "subject": "Math",
+        "question": "What is the square root of 144?",
+        "options": ["10", "11", "12", "14"],
+        "answer": "12",
+        "topic": "Arithmetic"
+    },
+    {
+        "subject": "Math",
+        "question": "Solve for x: 2x + 5 = 15",
+        "options": ["5", "10", "7.5", "2.5"],
+        "answer": "5",
+        "topic": "Algebra"
+    },
+    {
+        "subject": "Math",
+        "question": "How many sides does a hexagon have?",
+        "options": ["5", "6", "7", "8"],
+        "answer": "6",
+        "topic": "Geometry"
+    },
+    {
+        "subject": "Math",
+        "question": "What is the next prime number after 13?",
+        "options": ["14", "15", "17", "19"],
+        "answer": "17",
+        "topic": "Number Theory"
+    },
+    {
+        "subject": "Math",
+        "question": "If a triangle has angles 90, 45, what is the third angle?",
+        "options": ["45", "60", "90", "30"],
+        "answer": "45",
+        "topic": "Geometry"
+    },
+    {
+        "subject": "Math",
+        "question": "What is 15% of 200?",
+        "options": ["15", "20", "30", "40"],
+        "answer": "30",
+        "topic": "Percentages"
+    },
+    {
+        "subject": "Math",
+        "question": "Which of these is a Pythagorean triple?",
+        "options": ["2, 3, 4", "3, 4, 5", "4, 5, 6", "5, 6, 7"],
+        "answer": "3, 4, 5",
+        "topic": "Geometry"
+    },
+    {
+        "subject": "Math",
+        "question": "What is the formula for the area of a circle?",
+        "options": ["2πr", "πd", "πr²", "2πr²"],
+        "answer": "πr²",
+        "topic": "Geometry"
+    },
+    {
+        "subject": "Social Studies",
+        "question": "Who was the first President of the United States?",
+        "options": ["Abraham Lincoln", "Thomas Jefferson", "George Washington", "John Adams"],
+        "answer": "George Washington",
+        "topic": "US History"
+    },
+    {
+        "subject": "Social Studies",
+        "question": "The ancient pyramids are located in which country?",
+        "options": ["Greece", "Rome", "Mexico", "Egypt"],
+        "answer": "Egypt",
+        "topic": "World History"
+    },
+    {
+        "subject": "Social Studies",
+        "question": "What is the longest river in the world?",
+        "options": ["Amazon", "Nile", "Yangtze", "Mississippi"],
+        "answer": "Nile",
+        "topic": "Geography"
+    },
+    {
+        "subject": "Social Studies",
+        "question": "In which year did World War II end?",
+        "options": ["1942", "1945", "1950", "1939"],
+        "answer": "1945",
+        "topic": "World History"
+    },
+    {
+        "subject": "Social Studies",
+        "question": "What is the capital of Australia?",
+        "options": ["Sydney", "Melbourne", "Canberra", "Perth"],
+        "answer": "Canberra",
+        "topic": "Geography"
+    },
+    {
+        "subject": "Social Studies",
+        "question": "The Renaissance began in which country?",
+        "options": ["France", "England", "Spain", "Italy"],
+        "answer": "Italy",
+        "topic": "World History"
+    },
+    {
+        "subject": "Social Studies",
+        "question": "What is the legislative branch of the U.S. government called?",
+        "options": ["The Cabinet", "The Supreme Court", "Congress", "The Presidency"],
+        "answer": "Congress",
+        "topic": "Civics"
+    },
+    {
+        "subject": "Social Studies",
+        "question": "Who wrote 'The Communist Manifesto'?",
+        "options": ["Adam Smith", "Vladimir Lenin", "Karl Marx", "John Locke"],
+        "answer": "Karl Marx",
+        "topic": "Political Science"
+    },
+    {
+        "subject": "Social Studies",
+        "question": "Mount Everest is located in which mountain range?",
+        "options": ["The Andes", "The Rockies", "The Alps", "The Himalayas"],
+        "answer": "The Himalayas",
+        "topic": "Geography"
+    },
+    {
+        "subject": "Social Studies",
+        "question": "The Magna Carta was signed in which country?",
+        "options": ["France", "Germany", "England", "Spain"],
+        "answer": "England",
+        "topic": "World History"
+    }
+]
