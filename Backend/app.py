@@ -27,7 +27,17 @@ app = Flask(
 
 # --- App Configuration ---
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_default_secret_key')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+database_url = os.environ.get('DATABASE_URL')
+if database_url:
+    # Render's DATABASE_URL is for postgres, but SQLAlchemy needs postgresql
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+    # Use the DATABASE_URL from the environment if it exists, otherwise fall back to SQLite
+    database_url = os.environ.get('DATABASE_URL')
+    if database_url:
+        # Render's DATABASE_URL is for postgres, but SQLAlchemy needs postgresql
+        database_url = database_url.replace("postgres://", "postgresql://", 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url or 'sqlite:///database.db'
+print(app.config['SQLALCHEMY_DATABASE_URI'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 

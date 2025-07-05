@@ -5,7 +5,7 @@
     --accent-blue: #3498db;
     --neutral-bg: #f8f9fa;
     --neutral-bg-soft: #f1f3f5;
-    --neutral-border: #dee2e6;
+    --neutral-border: #dee2e6;
     --neutral-text-dark: #2d3436;
     --neutral-text-light: #636e72;
     --text-on-dark: #ffffff;
@@ -1455,23 +1455,6 @@ html.dark .spinner-dark {
     max-width: 900px;
 }
 
-#student-detail-modal {
-    z-index: 60;
-}
-
-#complaint-modal, #answer-doubt-modal, #gemini-response-modal {
-    z-index: 70; /* Higher z-index to appear on top */
-}
-
-/* Bug Fixes */
-/* 2. Fix for chart containers stretching */
-.chart-container {
-    position: relative;
-    height: 300px;
-    width: 100%;
-}
-
-/* 3. Fix for modal z-index overlay */
 #student-detail-modal {
     z-index: 60;
 }
