@@ -1,4 +1,5 @@
 import os
+import logging
 from flask import Flask, jsonify, request, redirect, url_for, send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
@@ -21,9 +22,15 @@ load_dotenv()
 # The template_folder is set to '.' to find login.html in the backend directory.
 app = Flask(
     __name__,
-    static_folder='../frontend',
-    template_folder='.'
+    static_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Frontend')),
+    template_folder=os.path.abspath(os.path.dirname(__file__))
 )
+
+# --- Logging Configuration ---
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
 
 # --- App Configuration ---
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_default_secret_key')
@@ -37,7 +44,7 @@ if database_url:
         # Render's DATABASE_URL is for postgres, but SQLAlchemy needs postgresql
         database_url = database_url.replace("postgres://", "postgresql://", 1)
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url or 'sqlite:///database.db'
-print(app.config['SQLALCHEMY_DATABASE_URI'])
+app.logger.info(f"Database URI: {app.config['SQLALCHEMY_DATABASE_URI']}")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 
@@ -373,7 +380,7 @@ def gemini_proxy():
         response.raise_for_status()
         return jsonify(response.json())
     except requests.exceptions.RequestException as e:
-        print(f"Error calling Gemini API: {e}")
+        app.logger.error(f"Error calling Gemini API: {e}")
         error_details = "An unknown error occurred."
         try:
             error_details = e.response.json()
@@ -474,4 +481,5 @@ if __name__ == '__main__':
     with app.app_context():
         # This ensures the database is created if it doesn't exist
         db.create_all()
+    app.logger.info("Starting Flask server in debug mode.")
     app.run(debug=True, port=8000)
