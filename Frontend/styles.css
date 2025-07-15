@@ -1,3 +1,24 @@
+@font-face {
+    font-family: 'Roobert';
+    src: url('./fonts/Roobert-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roobert';
+    src: url('./fonts/Roobert-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roobert';
+    src: url('./fonts/Roobert-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
 :root {
     --primary-purple: #6c5ce7;
     --primary-purple-dark: #5849b8;
@@ -121,7 +142,7 @@ html {
 body {
     height: 100vh;
     margin: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roobert', sans-serif;
     background: var(--c-body-bg);
     padding: 0;
     color: var(--c-text-body);
@@ -235,7 +256,7 @@ html.dark ::-webkit-scrollbar-thumb:hover { background: var(--gray-500); }
 
 /* --- BUTTONS --- */
 button {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roobert', sans-serif;
     border: 0;
 	padding-block: 1em;
 	color: #fff;
