@@ -1198,15 +1198,8 @@ async function handleSendComplaint() {
 
 // --- App Initialization ---
 document.addEventListener('DOMContentLoaded', () => {
-    // Splash Screen
     loadQuizData();
-    const splashScreen = document.getElementById('splash-screen');
-    splashScreen.querySelectorAll('h1 span').forEach((span, index) => { span.style.animationDelay = `${0.1 + index * 0.05}s`; });
-    setTimeout(() => {
-        splashScreen.classList.add('hidden');
-        showView('login-view');
-        roleSelectionSection.classList.add('animate-in');
-    }, 2500);
+    showView('login-view');
 
     // Theme Setup
     setTheme(localStorage.getItem('theme') || 'dark');
@@ -1220,9 +1213,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Login
     document.getElementById('login-form').addEventListener('submit', (e) => { e.preventDefault(); handleAuthLogin(); });
-    document.getElementById('login-teacher').addEventListener('click', () => showAuthFormForRole('teacher'));
-    document.getElementById('login-student').addEventListener('click', () => showAuthFormForRole('student'));
-    document.getElementById('login-parent').addEventListener('click', () => showAuthFormForRole('parent'));
+
+    const loginButtons = document.querySelectorAll('.login-button');
+    loginButtons.forEach(button => {
+        button.classList.add('no-hover'); // Initially disable hover
+        button.addEventListener('animationend', (event) => {
+            if (event.animationName === 'bounceInUp') {
+				button.classList.remove('animate__bounceInUp'); // Remove animate.css class
+                button.classList.remove('no-hover'); // Re-enable hover effects
+            }
+        });
+    });
+
+	document.getElementById('login-teacher').addEventListener('click', () => showAuthFormForRole('teacher'));
+	document.getElementById('login-student').addEventListener('click', () => showAuthFormForRole('student'));
+	document.getElementById('login-parent').addEventListener('click', () => showAuthFormForRole('parent'));
     authLoginBtn.addEventListener('click', handleAuthLogin);
     passwordInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleAuthLogin());
     backToRolesBtn.addEventListener('click', handleBackToRoles);

@@ -132,7 +132,7 @@ html.dark {
 
 html {
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 *, *::before, *::after {
@@ -286,14 +286,18 @@ button:disabled {
 .login-button {
     padding: 1.25rem 2.5rem;
     border-radius: var(--radius-lg);
-    font-size: 1.1rem;
+    font-size: 1.0rem;
     font-weight: 600;
     color: var(--text-on-dark);
     box-shadow: var(--shadow-sm);
 }
 
 .login-card {
-    background-color: var(--c-card-bg);
+    background-image: linear-gradient(
+        135deg, 
+        #6b7280, 
+        #1f2937
+    );
     width: 100%;
     max-width: 28rem; /* Prevents the card from becoming too wide on large screens */
     padding: 3rem; /* Generous padding inside the card */
@@ -305,7 +309,7 @@ button:disabled {
     display: flex;
     flex-direction: column;
     align-items: center; /* Center flex children (role buttons, form) horizontally */
-    border: 1px solid var(--c-border);
+    border: 10px solid var(--c-border);
 }
 
 .login-theme-toggle {
@@ -325,7 +329,7 @@ button:disabled {
 
 .login-theme-toggle:hover {
     background-color: var(--c-logout-bg-hover);
-    transform: scale(1.1) rotate(15deg);
+    transform: scale(1.1) rotate(30deg);
 }
 
 
@@ -337,7 +341,7 @@ button:disabled {
 .login-title {
     font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(180deg, var(--primary-purple), var(--accent-blue));
+    background: linear-gradient(to right, #66ccff, #99e6b3);;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; /* Makes the text color transparent to show gradient */
     margin-bottom: 0.5rem;
@@ -467,6 +471,10 @@ html.dark .background-shapes div {
     transform: scale(1.08) translateY(-2px); /* A bit more pop for these special buttons */
 }
 
+.no-hover {
+    pointer-events: none;
+}
+
 /* Original gradients for login buttons */
 .teacher-bg { background: linear-gradient(90deg, #1abc9c, #3498db); } /* Teal to Blue */
 .student-bg { background: linear-gradient(90deg, #e74c3c, #f39c12); } /* Red to Yellow-Orange */
@@ -523,12 +531,12 @@ html.dark .background-shapes div {
     background-size: 200% auto; /* Make the gradient larger to be able to move it */
     background-image: linear-gradient(
         90deg, 
-        var(--accent-teal), 
-        var(--accent-blue), 
+        var(--accent-blue), /* Start with auth-submit-btn start color */
         var(--primary-purple),
         var(--danger), 
         var(--warning), 
-        var(--accent-teal) /* Loop back for seamless animation */
+        var(--accent-teal), 
+        var(--accent-blue) /* Loop back to auth-submit-btn start color */
     );
     animation: flow-rainbow 2s linear infinite;
     transform: scale(1.08) translateY(-2px); /* A bit more pop for these special buttons */
